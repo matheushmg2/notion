@@ -7,6 +7,8 @@ import { ConvexClientPrivider } from "@/components/Providers/convex-provider";
 import { ModalProvider } from "@/components/Providers/modal-provider";
 
 import { EdgeStoreProvider } from "../lib/edgestore";
+import { Suspense } from "react";
+import { StaffToolbar } from "@/components/StaffToolbar/staffToolbar";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -45,6 +47,9 @@ export default function RootLayout({
                             <Toaster position="bottom-center" />
                             <ModalProvider />
                             {children}
+                            <Suspense>
+                                <StaffToolbar />
+                            </Suspense>
                         </ThemeProvider>
                     </EdgeStoreProvider>
                 </ConvexClientPrivider>
