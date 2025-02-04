@@ -7,7 +7,6 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
 import { use, useMemo } from "react";
 
 type DocumentIdProps = {
@@ -17,8 +16,6 @@ type DocumentIdProps = {
 const DocumentIdPage = ({ params }: DocumentIdProps) => {
     const unwrappedParams = use(params);
 
-    const router = useRouter();
-
     const Editor = useMemo(
         () =>
             dynamic(() => import("@/components/Editor/editor"), { ssr: false }),
@@ -27,14 +24,7 @@ const DocumentIdPage = ({ params }: DocumentIdProps) => {
 
     const documentId = unwrappedParams.documentId;
 
-    
     const document = useQuery(api.documents.getById, { documentId });
-
-    if (document === null) {
-        return router.push("/");
-    }
-
-    console.log("document: ", document);
 
     const update = useMutation(api.documents.update);
 
